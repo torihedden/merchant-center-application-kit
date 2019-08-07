@@ -5,8 +5,7 @@ import LockedDiamondSVG from '@commercetools-frontend/assets/images/locked-diamo
 import { MaintenancePageLayout } from '@commercetools-frontend/application-components';
 import { InjectReducers } from '@commercetools-frontend/application-shell';
 import { useIsAuthorized } from '@commercetools-frontend/permissions';
-import StateMachinesList from './components/state-machines-list';
-import StateMachinesDetails from './components/state-machines-details';
+import OrderDetails from './components/order-details';
 import reducers from './reducers';
 import { PERMISSIONS } from './constants';
 
@@ -19,41 +18,20 @@ const PageUnauthorized = () => (
 );
 
 const ApplicationRoutes = props => {
-  const canViewDeveloperSettings = useIsAuthorized({
-    demandedPermissions: [PERMISSIONS.ViewDeveloperSettings],
+  const canViewOrders = useIsAuthorized({
+    demandedPermissions: Object.values(PERMISSIONS),
     shouldMatchSomePermissions: true,
   });
   return (
-    <InjectReducers id="state-machines" reducers={reducers}>
+    <InjectReducers id="orders" reducers={reducers}>
       <Switch>
         <Route
           path={`${props.match.path}/:id`}
           render={routerProps => {
-            if (!canViewDeveloperSettings) {
+            if (!canViewOrders) {
               return <PageUnauthorized />;
             }
-            return (
-              <StateMachinesDetails
-                id={routerProps.match.params.id}
-                projectKey={routerProps.match.params.projectKey}
-                backToListPath={props.match.url}
-              />
-            );
-          }}
-        />
-        <Route
-          render={routerProps => {
-            if (!canViewDeveloperSettings) {
-              return <PageUnauthorized />;
-            }
-            return (
-              <StateMachinesList
-                projectKey={routerProps.match.params.projectKey}
-                goToStateMachineDetail={id => {
-                  props.history.push(`${props.match.url}/${id}`);
-                }}
-              />
-            );
+            return <OrderDetails id={routerProps.match.params.id} />;
           }}
         />
       </Switch>

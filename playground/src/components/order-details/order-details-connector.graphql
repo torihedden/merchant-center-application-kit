@@ -1,0 +1,21 @@
+query FetchOrderDetailsWithDataFence ($storeKeys: [KeyReferenceInput!]!, $orderId: String!) {
+  inStores(keys: $storeKeys) {
+    order (id: $orderId) {
+      ... OrderFragment
+    }
+  }
+}
+
+query FetchOrderDetailsWithoutDataFence ($orderId: String!) {
+  order (id: $orderId) {
+    ... OrderFragment
+  }
+}
+
+fragment OrderFragment on Order {
+  id
+  customerId
+  storeRef {
+    key
+  }
+}

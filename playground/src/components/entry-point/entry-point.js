@@ -12,27 +12,23 @@ import loadMessages from '../../messages';
 // Here we split up the main (app) bundle with the actual application business logic.
 // Splitting by route is usually recommended and you can potentially have a splitting
 // point for each route. More info at https://reactjs.org/docs/code-splitting.html
-const AsyncStateMachines = React.lazy(() =>
-  import('../../routes' /* webpackChunkName: "state-machines" */)
+const AsyncOrders = React.lazy(() =>
+  import('../../routes' /* webpackChunkName: "orders" */)
 );
 
-export const ApplicationStateMachines = () => (
+export const ApplicationOrders = () => (
   <Switch>
     {/* For development, it's useful to redirect to the actual
       application routes when you open the browser at http://localhost:3001 */
     process.env.NODE_ENV === 'production' ? null : (
-      <Redirect
-        exact={true}
-        from="/:projectKey"
-        to="/:projectKey/state-machines"
-      />
+      <Redirect exact={true} from="/:projectKey" to="/:projectKey/orders" />
     )}
-    <Route path="/:projectKey/state-machines" component={AsyncStateMachines} />
+    <Route path="/:projectKey/orders" component={AsyncOrders} />
     {/* Catch-all route */}
     <RouteCatchAll />
   </Switch>
 );
-ApplicationStateMachines.displayName = 'ApplicationStateMachines';
+ApplicationOrders.displayName = 'ApplicationOrders';
 
 // Ensure to setup the global error listener before any React component renders
 // in order to catch possible errors on rendering/mounting.
@@ -52,7 +48,7 @@ class EntryPoint extends React.Component {
         DEV_ONLY__loadNavbarMenuConfig={() =>
           import('../../../menu.json').then(data => data.default || data)
         }
-        render={() => <ApplicationStateMachines />}
+        render={() => <ApplicationOrders />}
       />
     );
   }

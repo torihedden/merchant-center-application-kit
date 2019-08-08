@@ -26,9 +26,11 @@ OrderDetailsGeneralInfoTab.propTypes = {
 };
 OrderDetailsGeneralInfoTab.displayName = 'OrderDetailsGeneralInfoTab';
 export default injectAuthorized([PERMISSIONS.ViewOrders], {
-  dataFence: {
-    type: 'store',
-    name: PERMISSIONS.ManageOrders,
-    group: 'orders',
-  },
+  dataFences: [
+    {
+      type: 'store',
+      name: PERMISSIONS.ManageOrders,
+      group: 'orders',
+    },
+  ],
 })(OrderDetailsGeneralInfoTab);

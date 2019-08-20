@@ -1,18 +1,20 @@
 {
-  "name": "visual-testing-app",
+  "name": "@commercetools-local/visual-testing-app",
   "version": "14.3.5",
   "description": "An app to facilitate visual testing",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "start": "serve dist --no-clipboard --single --listen 3999"
+    "build": "parcel build index.html -d dist",
+    "develop": "parcel index.html --port 3999 --no-autoinstall",
+    "serve": "serve dist --no-clipboard --single --listen 3999"
   },
   "dependencies": {
+    "@commercetools-frontend/application-components": "14.4.0",
+    "@commercetools-frontend/react-notifications": "14.4.1",
     "@commercetools-frontend/ui-kit": "10.1.2",
     "@emotion/core": "10.0.15",
     "@emotion/styled": "10.0.15",
     "formik": "1.5.8",
-    "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-intl": "3.1.8",
@@ -20,8 +22,7 @@
     "react-router-dom": "5.0.1"
   },
   "devDependencies": {
-    "serve": "11.1.0",
-    "webpack": "4.39.1",
-    "webpack-cli": "3.3.6"
+    "parcel": "1.12.3",
+    "serve": "11.1.0"
   }
 }

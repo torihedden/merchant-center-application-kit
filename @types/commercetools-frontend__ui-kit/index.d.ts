@@ -538,6 +538,15 @@ declare module '@commercetools-frontend/ui-kit' {
     defaultProps: Pick<PrimaryActionDropdownOptionProps, 'isDisabled'>;
   };
 
+  // <LoadingSpinner>
+  export type LoadingSpinnerProps = {
+    children?: React.ReactNode;
+  };
+  export const LoadingSpinner: {
+    (props: LoadingSpinnerProps): JSX.Element;
+    displayName: string;
+  };
+
   // Icons
   export type IconProps = {
     color?:
